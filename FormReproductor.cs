@@ -1,27 +1,57 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections;
 using System.Windows.Forms;
 
 namespace ReproductorMusica_G2_2024_I
 {
     public partial class FormReproductor : Form
     {
-        Form formPadre;
+        private Form formPadre;
+        private ArrayList canciones;
         public FormReproductor(Form formPadre)
         {
             InitializeComponent();
             this.formPadre = formPadre;
+            canciones = new ArrayList();
         }
 
         private void FormReproductor_FormClosing(object sender, FormClosingEventArgs e)
         {
-           /// formPadre.Show();
+            formPadre.Show();
+        }
+
+        private void CargarCanciones()
+        {
+            canciones.Add(new Musica("Peso Pluma","Lady Gaga","Génesis"));
+            canciones.Add(new Musica("Michael Jackson","Thriller","Thriller"));
+
+        }
+
+        private void cargarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CargarCanciones();
+            foreach (object cancion in canciones    )
+            {
+                Musica musica = (Musica)cancion;
+                lstbCanciones.Items.Add(musica.Titulo);
+
+            }
+
+        }
+
+        private void lstbCanciones_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Musica musica = (Musica)canciones[lstbCanciones.SelectedIndex];
+
+            lbTitulo.Text = musica.Titulo;
+            lbArtista.Text = musica.Artista;
+            lbAlbum.Text = musica.Album;
+        }
+
+        private void agregarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormAgregar formAgregar = new FormAgregar();
+            formAgregar.ShowDialog();
         }
     }
 }

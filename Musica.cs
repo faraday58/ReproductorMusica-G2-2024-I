@@ -1,7 +1,7 @@
 ﻿
 namespace ReproductorMusica_G2_2024_I
 {
-    internal class Musica
+    public class Musica
     {
         #region Atributos
         private string artista;
